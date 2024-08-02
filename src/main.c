@@ -1,25 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../utils/list.h"
+#include "../utils/stack.h"
 
 int main(int argc, char** argv) {
-    node* tmp = NULL; // sempre nular os valores quando eles forem criados
-    
-    char line[2];
-    printf("type a value: ");
-    if(fgets(line, sizeof(line), stdin) == NULL) {
-        printf("input error.\n");
-        exit(1);
+    node* list_tmp = NULL; // sempre nular os valores quando eles forem criados
+    node* stack_tmp = NULL;
+
+    for(char i = 97, j = 107; i <= 107 && j >= 97; i++ && j--) {
+        stackPush(i, &stack_tmp);
+        listAppend(j, &list_tmp);
     }
 
-    char elem = line[0];
-    listAppend(elem, &tmp);
-    listAppend('b', &tmp);
-    listAppend(elem, &tmp);
-    listAppend('c', &tmp);
-    listAppend(elem, &tmp);
-    listAppend('d', &tmp);
-    listPrint(tmp);
-    listEmpty(&tmp);
+    stackPrint(stack_tmp);
+    printf("\n");
+    listPrint(list_tmp);
+    printf("\n");
+
+    listEmpty(&list_tmp);
+    stackEmpty(&stack_tmp);
+
+    // não printam nada pois a stack e a fila já estão vazias
+    stackPrint(stack_tmp);
+    listPrint(list_tmp);
+
+
+
     return 0;
 }
