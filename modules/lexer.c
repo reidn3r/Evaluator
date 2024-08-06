@@ -5,6 +5,16 @@
 #include <string.h>
 #include "../utils/list.h"
 
+/*PROBLEMA POSSIVELMENTE ESTA NA LINHA 66 ONDE É DECLARADO O CHAR NUM_STR
+    CASO DERMOS UM PRINT NO ESPAÇO DE MEMÓRIA DELE, VEREMOS QUE PRA TODA ITERAÇÃO
+    O ENDEREÇO DE MEMÓRIA É O MESMO, OU SEJA, ELE ESTÁ MUDANDO CADA NÓ QUE UTILIZOU
+
+
+ */
+
+
+
+
 // Função para verificar se um caractere é um espaço em branco
 bool is_whitespace(char c) {
     return isspace(c);
@@ -25,12 +35,13 @@ node* string2tokens(char* string) {
     node* tokens = NULL;
     int current_position = 0;
     int length = strlen(string);
+    char copy[length];
 
     while (current_position < length) {
         char* last_elem = lastElem(tokens);
-        printf("ultimo elem: %s\n", last_elem);
-        char* current_char = string + current_position;
-        printf("current_char[0] = %c\n", current_char[0]);
+        strcpy(copy, string);
+        char* current_char = copy + current_position;
+        current_char[1] = '\0';
 
         if (is_whitespace(current_char[0])) {
             // Ignora espaços em branco e avança para o próximo caractere
@@ -56,11 +67,9 @@ node* string2tokens(char* string) {
             }
 
             char num_str[12]; // Buffer para armazenar o número como string (considerando um int de 32 bits)
-
             // Copia o número da string para o buffer
             strncpy(num_str, string + start_position, current_position - start_position);
             num_str[current_position - start_position] = '\0';
-
             listAppend(num_str, &tokens); // TODO: atualmente converte pra int, mesmo que a função não seja capaz de receber um int
 
         } else if (is_operator(current_char[0])) {

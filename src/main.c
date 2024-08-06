@@ -37,12 +37,10 @@ int main(int argc, char** argv) {
     printf("Teste lexer:\n");
     const char* expression = "3+4*(5 - 6)";
 
-    printf("a\n");
     node* tokens = string2tokens(expression);
-    printf("b\n");
     listPrint(tokens);
-    printf("\nc\n");
     listEmpty(&tokens);
+    printf("\n");
 
     return 0;
 }

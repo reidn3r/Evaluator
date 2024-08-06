@@ -1,7 +1,18 @@
 #include <stdio.h> //NULL
 #include <stdlib.h> // malloc e free
+#include <string.h>
 #include "list.h"
 
+void listCopy(char** dest, char* elem) {
+    int length = strlen(elem);
+    *dest = malloc(sizeof(char)*(length+1));
+
+    for(int i = 0; i<length; i++) {
+        (*dest)[i] = elem[i];
+    }
+
+    (*dest)[length] = '\0';
+}
 
 bool isEmpty(node* node) {
     return node == NULL;
@@ -10,9 +21,9 @@ bool isEmpty(node* node) {
 void listAppend(char* elem, node** list) {
     if(isEmpty(*list)) {
         *list = (node*) malloc(sizeof(node));
-        (*list)->elem = elem;
+        // (*list)->elem = elem;
+        listCopy(&((*list)->elem), elem);
         (*list)->next = NULL;
-
         return;
     }
 
@@ -41,7 +52,7 @@ void listEmpty(node** list) {
 }
 
 void listPrint(node* list) {
-    if(list != NULL) {
+    if(!isEmpty(list)) {
         printf("%s -> ", list->elem);
         listPrint(list->next);
     }

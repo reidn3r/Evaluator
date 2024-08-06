@@ -11,6 +11,7 @@ bool isEmpty(node* node);
 void listAppend(char* elem, node** list);
 void listEmpty(node** list);
 void listPrint(node* list);
+void listCopy(char** dest, char* elem);
 char* listPop(node** list);
 char* lastElem(node* list);
 
