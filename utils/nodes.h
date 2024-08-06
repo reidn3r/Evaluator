@@ -7,14 +7,15 @@ typedef struct node node;
 typedef struct tree_node tree_node;
 
 struct node {
-    char elem;
+    char* elem;
     node* next;
 };
 
 struct tree_node {
-    char elem;
+    char* elem;
     tree_node* left;
     tree_node* right;
 };
 
 #endif
+

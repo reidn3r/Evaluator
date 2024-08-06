@@ -8,9 +8,11 @@ int main(int argc, char** argv) {
     node* list_tmp = NULL; // sempre nular os valores quando eles forem criados
     node* stack_tmp = NULL;
 
-    for(char i = 97, j = 107; i <= 107 && j >= 97; i++ && j--) {
-        stackPush(i, &stack_tmp);
-        listAppend(j, &list_tmp);
+    char* str_test[] = {"reidner", "hudson", "padovani"};
+
+    for(int i = 0, j = 2; i < 3 && j >= 0; i++, j--) {
+        stackPush(str_test[i], &stack_tmp);
+        listAppend(str_test[j], &list_tmp);
     }
 
     printf("Teste stack:\n");
@@ -28,13 +30,15 @@ int main(int argc, char** argv) {
     stackPrint(stack_tmp);
     listPrint(list_tmp);
 
-    // Teste lexer
-    printf("Teste lexer:\n");
-    const char* expression = "3+4*(5 - 6)";
 
-    node* tokens = string2tokens(expression);
-    listPrint(tokens);
-    listEmpty(&tokens);
+    // erro, não decomente!!!!!
+    // // Teste lexer
+    // printf("Teste lexer:\n");
+    // const char* expression = "3+4*(5 - 6)";
+
+    // node* tokens = string2tokens(expression);
+    // listPrint(tokens);
+    // listEmpty(&tokens);
 
     return 0;
 }

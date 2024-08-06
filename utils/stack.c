@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "stack.h"
 
-node* nodeCreate(char elem) {
+node* nodeCreate(char* elem) {
     node* tmp = (node*)malloc(sizeof(node));
     tmp->elem = elem;
     tmp->next = NULL;
@@ -16,7 +16,7 @@ node* nodeCreate(char elem) {
 		}
 }
 
-void stackPush(char elem, node** head) {
+void stackPush(char* elem, node** head) {
     if(*head == NULL) {
         *head = nodeCreate(elem);
         return;
@@ -27,10 +27,10 @@ void stackPush(char elem, node** head) {
     *head = tmp;
 }
 
-char stackPop(node** head) {
+char* stackPop(node** head) {
     if(*head == NULL) return '\0';
     
-    char x = (**head).elem;
+    char* x = (**head).elem;
     node* tmp = *head;
     *head = (**head).next;
     free(tmp);
@@ -51,11 +51,11 @@ int isEmptyStack(node* head) {
 void stackPrint(node* head) {
     if(head == NULL) return;
     if(head->next == NULL) {
-        printf("%c -> ", head->elem);
+        printf("%s -> ", head->elem);
         return;
     }
     
     stackPrint(head->next);
-    printf("%c -> ", head->elem);
+    printf("%s -> ", head->elem);
     return;
 }

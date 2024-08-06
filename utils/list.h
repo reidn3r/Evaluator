@@ -8,9 +8,9 @@
 bool isEmpty(node* node); 
 
 // funções para a fila
-void listAppend(char elem, node** list);
+void listAppend(char* elem, node** list);
 void listEmpty(node** list);
 void listPrint(node* list);
-char listPop(node** list);
+char* listPop(node** list);
 
 #endif

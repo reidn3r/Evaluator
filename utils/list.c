@@ -7,7 +7,7 @@ bool isEmpty(node* node) {
     return node == NULL;
 }
 
-void listAppend(char elem, node** list) {
+void listAppend(char* elem, node** list) {
     if(isEmpty(*list)) {
         *list = (node*) malloc(sizeof(node));
         (*list)->elem = elem;
@@ -19,9 +19,9 @@ void listAppend(char elem, node** list) {
     listAppend(elem , &((*list)->next));
 }
 
-char listPop(node** list) {
+char* listPop(node** list) {
     if(!isEmpty(*list)) {
-        char elem = (*list)->elem;
+        char* elem = (*list)->elem;
 
         node* tmp = *list;
         (*list) = (*list)->next;
@@ -35,17 +35,14 @@ char listPop(node** list) {
 
 // não confundir essa função com a função isEmpty, essa é pra esvaziar a lista toda.
 void listEmpty(node** list) {
-    node* tmp;
-    while(*list != NULL) {
-        tmp = *list;
-        *list = (*list)->next;
-        free(tmp);        
+    while(!isEmpty(*list)) {
+        listPop(list);        
     }
 }
 
 void listPrint(node* list) {
     if(list != NULL) {
-        printf("%c -> ", list->elem);
+        printf("%s -> ", list->elem);
         listPrint(list->next);
     }
 
