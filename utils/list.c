@@ -49,3 +49,11 @@ void listPrint(node* list) {
     return;
 
 }
+
+char* lastElem(node* list) {
+    if(!isEmpty(list) && !isEmpty(list->next)) {
+        return lastElem(list->next);
+    }
+
+    return list != NULL ? list->elem : '\0';
+}

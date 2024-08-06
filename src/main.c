@@ -23,6 +23,8 @@ int main(int argc, char** argv) {
     listPrint(list_tmp);
     printf("\n");
 
+    printf("ultimo elemento da lista: %s\n", lastElem(list_tmp));
+
     listEmpty(&list_tmp);
     stackEmpty(&stack_tmp);
 
@@ -31,14 +33,16 @@ int main(int argc, char** argv) {
     listPrint(list_tmp);
 
 
-    // erro, não decomente!!!!!
-    // // Teste lexer
-    // printf("Teste lexer:\n");
-    // const char* expression = "3+4*(5 - 6)";
+    // Teste lexer
+    printf("Teste lexer:\n");
+    const char* expression = "3+4*(5 - 6)";
 
-    // node* tokens = string2tokens(expression);
-    // listPrint(tokens);
-    // listEmpty(&tokens);
+    printf("a\n");
+    node* tokens = string2tokens(expression);
+    printf("b\n");
+    listPrint(tokens);
+    printf("\nc\n");
+    listEmpty(&tokens);
 
     return 0;
 }

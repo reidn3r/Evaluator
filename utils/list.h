@@ -12,5 +12,6 @@ void listAppend(char* elem, node** list);
 void listEmpty(node** list);
 void listPrint(node* list);
 char* listPop(node** list);
+char* lastElem(node* list);
 
 #endif
