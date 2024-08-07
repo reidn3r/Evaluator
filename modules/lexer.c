@@ -82,7 +82,7 @@ node* string2tokens(char* string) {
         // Para o segundo caso, verifica-se se existem tokens, se o último adicionado foi um caractere, e se pertence a '+-*/(' respectivamente
         if (is_digit(current_char[0]) || (current_char[0] == '-' && ( // TODO: não reconhece números negativos corretamente
                 current_position == 0 || 
-                (!isEmpty(tokens) && is_operator(last_elem[0]) && strlen(last_elem) > 1) || last_elem[0] == '('))) {
+                (last_elem != NULL && is_operator(last_elem[0])) || last_elem[0] == '('))) {
             // Reconhece números inteiros e números negativos
             int start_position = current_position;
             if (current_char[0] == '-') {
@@ -92,7 +92,6 @@ node* string2tokens(char* string) {
             while (current_position < length && (is_digit(string[current_position]) || string[current_position] == ' ')) {
                 current_position++;
             }
-            printf("%s, %d, %d\n\n", string, start_position, current_position);
 
             char num_str[12]; // Buffer para armazenar o número como string (considerando um int de 32 bits)
             // Copia o número da string para o buffer

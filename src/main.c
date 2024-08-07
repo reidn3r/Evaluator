@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 
     // Teste lexer
     printf("Teste lexer:\n");
-    char* expression = "- 2 + 3 (4 / 8 - 5 * -(22 - 5))";
+    char* expression = "- 2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
 
     node* tokens = string2tokens(expression);
     listPrint(tokens);
