@@ -10,8 +10,9 @@ DEBUG=-g
 .PHONY:
 
 # digite apenas 'make' na mesma pasta onde está o arquivo 'makefile' para compilar o projeto todo
+# gcc $(MAIN) $(UTILS) $(MODULES) $(FLAGS)
 std:
-	gcc $(MAIN) $(UTILS) $(MODULES) # $(FLAGS)
+	gcc $(MAIN) $(UTILS) $(MODULES)
 
 
 # compilações para testes caso precisemos:

@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "../utils/list.h"
+#include "../utils/stack.h"
 
 /*PROBLEMA POSSIVELMENTE ESTA NA LINHA 66 ONDE É DECLARADO O CHAR NUM_STR
     CASO DERMOS UM PRINT NO ESPAÇO DE MEMÓRIA DELE, VEREMOS QUE PRA TODA ITERAÇÃO
@@ -16,6 +17,7 @@
 
 
 // Função para verificar se um caractere é um espaço em branco
+
 bool is_whitespace(char c) {
     return isspace(c);
 }
@@ -30,10 +32,35 @@ bool is_operator(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
+int correct_parenteses(char* string) {
+    node* parenteses = nodeCreate("x");
+
+    for (int i = 0; i < strlen(string); i++) {
+
+        if (string[i] == '(') {
+            stackPush("(", &parenteses);
+
+        } else if (string[i] == ')') {
+            if (*stackPop(&parenteses) == '(') {
+                continue;
+                
+            } else {
+                return 0;
+            }
+        }
+    }
+    if (*stackPop(&parenteses) != 'x') return 0;
+}
+
 // Função para analisar a string e retornar uma lista de tokens
 node* string2tokens(char* string) {
+    //
+    if (!correct_parenteses(string)) return NULL;
+
+    //
     node* tokens = NULL;
     int current_position = 0;
+
     int length = strlen(string);
     char copy[length];
 
@@ -62,9 +89,10 @@ node* string2tokens(char* string) {
                 current_position++;
             }
 
-            while (current_position < length && is_digit(string[current_position])) {
+            while (current_position < length && (is_digit(string[current_position]) || string[current_position] == ' ')) {
                 current_position++;
             }
+            printf("%s, %d, %d\n\n", string, start_position, current_position);
 
             char num_str[12]; // Buffer para armazenar o número como string (considerando um int de 32 bits)
             // Copia o número da string para o buffer
