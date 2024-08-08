@@ -18,39 +18,44 @@ Queue* buildQueue(node *tokens){
         char *token = current_token -> elem;
 
         if(!isOperator(token) && !isParentesis(token)){
+            //Não é operador nem parenteses, enfileira o operando
             appendQueue(token, queue);
         }
 
-        else if(isOperator(token)){
-            char *stack_top_element = stackTopElement(stack_operator);
-            while(stackSize(stack_operator) > 0 &&
-                    operatorPrecedence(*stack_top_element) >= operatorPrecedence(*token) &&
-                    strcmp(stack_top_element, "(") != 0){
-                stack_top_element = stackPop(&stack_operator);
-                appendQueue(stack_top_element, queue);
+        else if(isOperator(token)) {
+            //Processa operador
+            while (stackSize(stack_operator) > 0 && 
+                isOperator(stackTopElement(stack_operator)) &&
+                operatorPrecedence(stackTopElement(stack_operator)) >= operatorPrecedence(token)) {
+                    char *stack_top_element = stackPop(&stack_operator);
+                    appendQueue(stack_top_element, queue);
             }
             stackPush(token, &stack_operator);
         }
 
         else if(strcmp(token, "(") == 0){
+            //Add. ( na pilha
             stackPush(token, &stack_operator);
         }
 
         else if(strcmp(token, ")") == 0){
-            char *stack_top_element = stackTopElement(stack_operator);
-            while(stackSize(stack_operator) > 0 && strcmp(stack_top_element, "(") != 0){
-                stack_top_element = stackPop(&stack_operator);
+            //Enquanto não encontra (, enfileira operandos e operadores
+            while(stackSize(stack_operator) > 0 && strcmp(stackTopElement(stack_operator), "(") != 0){
+                char *stack_top_element = stackPop(&stack_operator);
                 appendQueue(stack_top_element, queue);
             }
-            stack_top_element = stackPop(&stack_operator);
+            stackPop(&stack_operator); // Remove o '(' da pilha
         }
 
         current_token = current_token -> next;
     }
+
     while(stackSize(stack_operator) > 0){
+        //Esvazia pilha de operadores, enfileirando todos eles
         char *stack_top_element = stackPop(&stack_operator);
         appendQueue(stack_top_element, queue);
     }
+    
     return queue;
 }
 
@@ -73,11 +78,11 @@ bool isParentesis(char *token) {
     return strcmp(token, "(") == 0 || strcmp(token, ")") == 0;
 }
 
-int operatorPrecedence(char operator) {
-    if(strcmp(operator, "+") == 0 || strcmp(operator, "-")){
+int operatorPrecedence(char *operator) {
+    if(strcmp(operator, "+") == 0 || strcmp(operator, "-") == 0){
         return 1;
     }
-    if(strcmp(operator, "*") == 0 || strcmp(operator, "/")){
+    if(strcmp(operator, "*") == 0 || strcmp(operator, "/") == 0){
         return 2;
     }
     return 0;
