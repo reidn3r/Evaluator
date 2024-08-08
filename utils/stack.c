@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
+#include "copy.h"
 
 node* nodeCreate(char* elem) {
     node* tmp = (node*)malloc(sizeof(node));
-    tmp->elem = elem;
+    // tmp->elem = elem;
+    listCopy(&(tmp->elem), elem);
     tmp->next = NULL;
     
 		if(tmp != NULL) {

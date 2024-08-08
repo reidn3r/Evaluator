@@ -2,17 +2,7 @@
 #include <stdlib.h> // malloc e free
 #include <string.h>
 #include "list.h"
-
-void listCopy(char** dest, char* elem) {
-    int length = strlen(elem);
-    *dest = malloc(sizeof(char)*(length+1));
-
-    for(int i = 0; i<length; i++) {
-        (*dest)[i] = elem[i];
-    }
-
-    (*dest)[length] = '\0';
-}
+#include "copy.h"
 
 bool isEmpty(node* node) {
     return node == NULL;
@@ -53,7 +43,7 @@ void listEmpty(node** list) {
 
 void listPrint(node* list) {
     if(!isEmpty(list)) {
-        printf("%s -> ", list->elem);
+        printf(" %s ->", list->elem);
         listPrint(list->next);
     }
 

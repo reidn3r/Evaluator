@@ -6,15 +6,6 @@
 #include "../utils/list.h"
 #include "../utils/stack.h"
 
-/*PROBLEMA POSSIVELMENTE ESTA NA LINHA 66 ONDE É DECLARADO O CHAR NUM_STR
-    CASO DERMOS UM PRINT NO ESPAÇO DE MEMÓRIA DELE, VEREMOS QUE PRA TODA ITERAÇÃO
-    O ENDEREÇO DE MEMÓRIA É O MESMO, OU SEJA, ELE ESTÁ MUDANDO CADA NÓ QUE UTILIZOU
-
-
- */
-
-
-
 
 // Função para verificar se um caractere é um espaço em branco
 
@@ -25,6 +16,21 @@ bool is_whitespace(char c) {
 // Função para verificar se um caractere é um dígito
 bool is_digit(char c) {
     return isdigit(c);
+}
+
+bool isNegDigit(char* c) {
+    int sub_operator = 0;
+    int num = 0;
+
+    for(int i = 0; i < strlen(c); i++) {
+        if(c[i] == '-') {
+            sub_operator++;
+        } else if(is_digit(c[i])) {
+            num++;
+        }
+    }
+
+    return sub_operator > 0 && num > 0;
 }
 
 // Função para verificar se um caractere é um operador aritmético
@@ -82,7 +88,7 @@ node* string2tokens(char* string) {
         // Para o segundo caso, verifica-se se existem tokens, se o último adicionado foi um caractere, e se pertence a '+-*/(' respectivamente
         if (is_digit(current_char[0]) || (current_char[0] == '-' && ( // TODO: não reconhece números negativos corretamente
                 current_position == 0 || 
-                (last_elem != NULL && is_operator(last_elem[0])) || last_elem[0] == '('))) {
+                (last_elem != NULL && is_operator(last_elem[0]) && !isNegDigit(last_elem)) || last_elem[0] == '('))) {
             // Reconhece números inteiros e números negativos
             int start_position = current_position;
             if (current_char[0] == '-') {
