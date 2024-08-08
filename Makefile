@@ -12,7 +12,7 @@ DEBUG=-g
 # digite apenas 'make' na mesma pasta onde está o arquivo 'makefile' para compilar o projeto todo
 # gcc $(MAIN) $(UTILS) $(MODULES) $(FLAGS)
 std:
-	gcc $(MAIN) $(UTILS) $(MODULES)
+	gcc $(MAIN) $(UTILS) $(MODULES) -o a.exe
 
 
 # compilações para testes caso precisemos:

@@ -59,3 +59,23 @@ void stackPrint(node* head) {
     printf("%s -> ", head->elem);
     return;
 }
+
+int stackSize(node *head){
+    if(head == NULL) return 0;
+
+    int size = 1;
+    while(head != NULL){
+        head = head -> next;
+        size++;
+    }
+    return size;
+}
+
+char *stackTopElement(node *head){
+    if(head == NULL) return NULL;
+
+    while(head->next != NULL){
+        head = head -> next;
+    }
+    return head -> elem;
+}

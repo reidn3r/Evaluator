@@ -3,6 +3,8 @@
 #include "../utils/list.h"
 #include "../utils/stack.h"
 #include "../modules/lexer.h"
+#include "../utils/queue.h"
+#include "../utils/shunting_yard.h"
 
 int main(int argc, char** argv) {
     node* list_tmp = NULL; // sempre nular os valores quando eles forem criados
@@ -15,32 +17,36 @@ int main(int argc, char** argv) {
         listAppend(str_test[j], &list_tmp);
     }
 
-    printf("Teste stack:\n");
-    stackPrint(stack_tmp);
-    printf("\n");
+    // printf("Teste stack:\n");
+    // stackPrint(stack_tmp);
+    // printf("\n");
 
-    printf("Teste list:\n");
-    listPrint(list_tmp);
-    printf("\n");
+    // printf("Teste list:\n");
+    // listPrint(list_tmp);
+    // printf("\n");
 
-    printf("ultimo elemento da lista: %s\n", lastElem(list_tmp));
+    // printf("ultimo elemento da lista: %s\n", lastElem(list_tmp));
 
-    listEmpty(&list_tmp);
-    stackEmpty(&stack_tmp);
+    // listEmpty(&list_tmp);
+    // stackEmpty(&stack_tmp);
 
     // não printam nada pois a stack e a fila já estão vazias
-    stackPrint(stack_tmp);
-    listPrint(list_tmp);
+    // stackPrint(stack_tmp);
+    // listPrint(list_tmp);
 
 
     // Teste lexer
     printf("Teste lexer:\n");
-    char* expression = "- 2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
+    char* expression = "-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
 
     node* tokens = string2tokens(expression);
     listPrint(tokens);
-    listEmpty(&tokens);
-    printf("\n");
+
+    printf("\nsy queue:\n");
+    Queue *q = buildQueue(tokens);
+    printQueue(q);
+    // listEmpty(&tokens);
+    // printf("\n");
 
     return 0;
 }

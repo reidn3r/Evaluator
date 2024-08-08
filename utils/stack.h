@@ -10,4 +10,6 @@ void stackEmpty(node** head);
 int isEmptyStack(node* head);
 void stackPrint(node* head);
 
+char *stackTopElement(node *head);
+int stackSize(node *head);
 #endif
