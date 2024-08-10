@@ -1,11 +1,11 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "shunting_yard.h"
 #include "nodes.h"
 #include "queue.h"
 #include "stack.h"
-#include "string.h"
 
 Queue* buildQueue(node *tokens){
     Queue *queue = malloc(sizeof(Queue));

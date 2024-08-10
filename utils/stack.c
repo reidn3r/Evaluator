@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "copy.h"
+#include "../modules/parser.h"
 
 node* nodeCreate(char* elem) {
     node* tmp = (node*)malloc(sizeof(node));
     // tmp->elem = elem;
-    listCopy(&(tmp->elem), elem);
+    copy(&(tmp->elem), elem);
     tmp->next = NULL;
+    tmp->sub_tree = NULL;
     
-		if(tmp != NULL) {
+		if(!isEmptyStack(tmp)) {
 			return tmp;
 		}
 		else {
@@ -19,7 +21,7 @@ node* nodeCreate(char* elem) {
 }
 
 void stackPush(char* elem, node** head) {
-    if(*head == NULL) {
+    if(isEmptyStack(*head)) {
         *head = nodeCreate(elem);
         return;
     }
@@ -29,8 +31,25 @@ void stackPush(char* elem, node** head) {
     *head = tmp;
 }
 
+// caso especial de push na stack, onde uma sub-àrvore é colocada no topo da stack
+void stackPushTree(tree_node* sub_tree, node** head) {
+    if(isEmptyStack(*head)) {
+        *head = (node*)malloc(sizeof(node));
+        (*head)->elem = '\0';
+        (*head)->sub_tree = sub_tree;
+        (*head)->next = NULL;
+        return;
+    }
+
+    node* tmp = (node*)malloc(sizeof(node));
+    tmp->elem = '\0';
+    tmp->sub_tree = sub_tree;
+    tmp->next = *head;
+    *head = tmp;
+}
+
 char* stackPop(node** head) {
-    if(*head == NULL) return '\0';
+    if(isEmptyStack(*head)) return '\0';
     
     char* x = (**head).elem;
     node* tmp = *head;
@@ -51,22 +70,33 @@ int isEmptyStack(node* head) {
 }
 
 void stackPrint(node* head) {
-    if(head == NULL) return;
-    if(head->next == NULL) {
-        printf("%s -> ", head->elem);
+    if(isEmptyStack(head)) return;
+    if(isEmptyStack(head->next)) {
+        if(head->elem != NULL) {
+            printf("%s -> ", head->elem);
+        } else {
+            inOrderTree(head->sub_tree);
+            printf("-> ");
+        }
         return;
     }
     
+
     stackPrint(head->next);
-    printf("%s -> ", head->elem);
+    if(head->elem != NULL) {
+            printf("%s -> ", head->elem);
+        } else {
+            inOrderTree(head->sub_tree);
+            printf("-> ");
+        }
     return;
 }
 
 int stackSize(node *head){
-    if(head == NULL) return 0;
+    if(isEmptyStack(head)) return 0;
 
     int size = 1;
-    while(head != NULL){
+    while(!isEmptyStack(head)){
         head = head -> next;
         size++;
     }
@@ -74,7 +104,7 @@ int stackSize(node *head){
 }
 
 char *stackTopElement(node *head){
-    if(head == NULL) return NULL;
+    if(isEmptyStack(head)) return NULL;
 
     // while(head->next != NULL){
     //     head = head -> next;

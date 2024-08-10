@@ -1,9 +1,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include "copy.h"
+/*Módulo de funções auxiliares e úteis*/
 
 // copia a string em 'elem' para 'dest' tirando os espaços em branco
-void listCopy(char** dest, char* elem) {
+void copy(char** dest, char* elem) {
     int elem_length = strlen(elem);
     int dest_elem = 0;
     *dest = malloc(sizeof(char)*(elem_length+1));

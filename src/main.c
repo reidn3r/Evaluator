@@ -5,6 +5,7 @@
 #include "../modules/lexer.h"
 #include "../utils/queue.h"
 #include "../utils/shunting_yard.h"
+#include "../modules/parser.h"
 
 int main(int argc, char** argv) {
     node* list_tmp = NULL; // sempre nular os valores quando eles forem criados
@@ -37,8 +38,10 @@ int main(int argc, char** argv) {
 
     // Teste lexer
     printf("Teste lexer:\n");
-    char* expression = "10 + 3 (- 67 -      -23 + ( 13  /   -    1))";
-    //"-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
+    char* expression = "10 + 3 * (- 67 -      -23 + ( 1  /   -    1))";
+    // "-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
+    
+    
 
     node* tokens = string2tokens(expression);
     listPrint(tokens);
@@ -46,8 +49,16 @@ int main(int argc, char** argv) {
     printf("\nsy queue:\n");
     Queue *q = buildQueue(tokens);
     printQueue(q);
-    // listEmpty(&tokens);
-    // printf("\n");
+    listEmpty(&tokens);
+    printf("\n");
+    printQueue(q);
+
+    printf("\n");
+
+    printf("teste àrvore: \n");
+    tree_node* tree = parser(q);
+
+    printf("\n");
 
     return 0;
 }

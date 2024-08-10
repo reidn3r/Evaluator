@@ -12,7 +12,7 @@ void listAppend(char* elem, node** list) {
     if(isEmpty(*list)) {
         *list = (node*) malloc(sizeof(node));
         // (*list)->elem = elem;
-        listCopy(&((*list)->elem), elem);
+        copy(&((*list)->elem), elem);
         (*list)->next = NULL;
         return;
     }

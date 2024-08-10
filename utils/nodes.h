@@ -8,6 +8,7 @@ typedef struct tree_node tree_node;
 
 struct node {
     char* elem;
+    tree_node* sub_tree; // finja que essa subtree sempre existiu dentro da struct e vocês só ignoraram quando usavam esse nó
     node* next;
 };
 
