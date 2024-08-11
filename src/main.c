@@ -37,28 +37,21 @@ int main(int argc, char** argv) {
 
 
     // Teste lexer
-    printf("Teste lexer:\n");
-    char* expression = "10 + 3 * (- 67 -      -23 + ( 1  /   -    1))";
-    // "-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
-    
-    
-
+    // printf("Teste lexer:\n");
+    char* expression = "10 + 3 * (-67 - -23 + (1 /-1))";
+    // char* expression = "-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
     node* tokens = string2tokens(expression);
-    listPrint(tokens);
 
     printf("\nsy queue:\n");
     Queue *q = buildQueue(tokens);
     printQueue(q);
-    listEmpty(&tokens);
-    printf("\n");
-    printQueue(q);
 
     printf("\n");
 
-    printf("teste àrvore: \n");
     tree_node* tree = parser(q);
+    printf("inorder:\n");
+    inOrderTree(tree);
 
-    printf("\n");
 
     return 0;
 }

@@ -32,21 +32,22 @@ void stackPush(char* elem, node** head) {
 }
 
 // caso especial de push na stack, onde uma sub-àrvore é colocada no topo da stack
-void stackPushTree(tree_node* sub_tree, node** head) {
-    if(isEmptyStack(*head)) {
-        *head = (node*)malloc(sizeof(node));
-        (*head)->elem = '\0';
-        (*head)->sub_tree = sub_tree;
-        (*head)->next = NULL;
-        return;
-    }
+// void stackPushTree(tree_node* sub_tree, node** head) {
+//     if(isEmptyStack(*head)) {
+//         *head = (node*)malloc(sizeof(node));
+//         (*head)->elem = '\0';
+//         (*head)->sub_tree = sub_tree;
+//         (*head)->next = NULL;
+//         return;
+//     }
 
-    node* tmp = (node*)malloc(sizeof(node));
-    tmp->elem = '\0';
-    tmp->sub_tree = sub_tree;
-    tmp->next = *head;
-    *head = tmp;
-}
+//     node* tmp = (node*)malloc(sizeof(node));
+//     tmp->elem = '\0';
+//     tmp->sub_tree = sub_tree;
+//     tmp->next = *head;
+//     *head = tmp;
+// }
+
 
 char* stackPop(node** head) {
     if(isEmptyStack(*head)) return '\0';
@@ -105,9 +106,20 @@ int stackSize(node *head){
 
 char *stackTopElement(node *head){
     if(isEmptyStack(head)) return NULL;
-
-    // while(head->next != NULL){
-    //     head = head -> next;
-    // }
     return head -> elem;
+}
+
+
+tree_node* stackPushSubTree(tree_node* sub_tree, tree_node* stack_top){
+    sub_tree -> next = stack_top;
+    return sub_tree;
+}
+
+tree_node* stackPopSubTree(tree_node** stack_top){
+    if(stack_top == NULL) return NULL;
+
+    tree_node* output_node = *stack_top;
+    *stack_top = (*stack_top) -> next;
+
+    return output_node;
 }

@@ -16,6 +16,7 @@ struct tree_node {
     char* elem;
     tree_node* left;
     tree_node* right;
+    tree_node* next;
 };
 
 #endif
