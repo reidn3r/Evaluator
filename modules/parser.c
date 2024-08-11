@@ -40,15 +40,6 @@ tree_node* parser(Queue* q) {
 }
 
 tree_node* build(tree_node* root){
-    // tree_node* prev_node = root;
-    // tree_node* next_node = prev_node -> next;
-    // while(next_node != NULL){
-    //     next_node -> left = prev_node;
-    //     prev_node = next_node;
-    //     next_node = prev_node -> next;
-    // }
-    // return prev_node;
-
     if(root -> next == NULL){
         return root;
     }
