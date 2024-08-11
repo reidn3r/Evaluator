@@ -7,51 +7,27 @@
 #include "../utils/shunting_yard.h"
 #include "../modules/parser.h"
 
+#define BUFFER_SIZE 255
+
 int main(int argc, char** argv) {
-    node* list_tmp = NULL; // sempre nular os valores quando eles forem criados
-    node* stack_tmp = NULL;
+    char buffer[BUFFER_SIZE];
+    
+    FILE* fd = fopen("io/input.txt", "r");
+    if(fd == NULL) return 1;
+    
+    while(fgets(buffer, BUFFER_SIZE, fd)){
+        printf("> %s\n", buffer);
+        node* tokens = string2tokens(buffer);
 
-    char* str_test[] = {"reidner", "hudson", "padovani"};
+        Queue *q = buildQueue(tokens);
+        printf("queue: ");
+        printQueue(q);
+        printf("\n");
 
-    for(int i = 0, j = 2; i < 3 && j >= 0; i++, j--) {
-        stackPush(str_test[i], &stack_tmp);
-        listAppend(str_test[j], &list_tmp);
+        tree_node* tree = parser(q);
+        printf("in-order: ");
+        inOrderTree(tree);
+        printf("\n\n");
     }
-
-    // printf("Teste stack:\n");
-    // stackPrint(stack_tmp);
-    // printf("\n");
-
-    // printf("Teste list:\n");
-    // listPrint(list_tmp);
-    // printf("\n");
-
-    // printf("ultimo elemento da lista: %s\n", lastElem(list_tmp));
-
-    // listEmpty(&list_tmp);
-    // stackEmpty(&stack_tmp);
-
-    // não printam nada pois a stack e a fila já estão vazias
-    // stackPrint(stack_tmp);
-    // listPrint(list_tmp);
-
-
-    // Teste lexer
-    // printf("Teste lexer:\n");
-    char* expression = "10 + 3 * (-67 - -23 + (1 /-1))";
-    // char* expression = "-2 + 3 (- 4 /- 8 - 5 * (22 + - 5))";
-    node* tokens = string2tokens(expression);
-
-    printf("\nsy queue:\n");
-    Queue *q = buildQueue(tokens);
-    printQueue(q);
-
-    printf("\n");
-
-    tree_node* tree = parser(q);
-    printf("inorder:\n");
-    inOrderTree(tree);
-
-
     return 0;
 }
