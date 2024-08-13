@@ -50,49 +50,6 @@ tree_node* build(tree_node* root){
     }
 }
 
-// tree_node* treeHandling(node** stack, char* op) {
-//     tree_node* tmp = (tree_node*)malloc(sizeof(tree_node));
-//     tree_node* sub_right = NULL;
-//     tree_node* sub_left = NULL;
-//     tmp->elem = op;
-
-//     // verifica se o elemento do topo é um número ou uma sub-àrvore
-//     if((*stack)->elem != NULL) { // é um número
-//         char* right = stackPop(stack);
-
-//         sub_right = (tree_node*)malloc(sizeof(tree_node));
-//         copy(&(sub_right->elem), right);
-//         sub_right->left = NULL;
-//         sub_right->right = NULL;
-
-//     } else { // é uma sub-àrvore
-//         sub_right = (*stack)->sub_tree;
-//         stackPop(stack);
-
-//     }
-
-//     tmp->right = sub_right;
-
-//     // verifica se o elemento abaixo do elemento do topo é um número ou uma sub-àrvore
-//     if((*stack)->elem != NULL) { // é um número
-//         char* left = stackPop(stack);
-
-//         sub_left = (tree_node*)malloc(sizeof(tree_node));
-//         copy(&(sub_left->elem), left);
-//         sub_left->left = NULL;
-//         sub_left->right = NULL;
-//     } else { // é uma sub-àrvore
-//         sub_left = (*stack)->sub_tree;
-//         stackPop(stack);
-
-//     }
-
-
-//     tmp->left = sub_left;
-
-//     return tmp;
-// }
-
 void inOrderTree(tree_node* tree) {
     if(tree->left != NULL) {
         inOrderTree(tree->left);

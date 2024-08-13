@@ -5,5 +5,6 @@
 
 // Função para analisar a string e retornar uma lista de tokens
 node* string2tokens(const char* string);
+bool is_digit(char c);
 
 #endif

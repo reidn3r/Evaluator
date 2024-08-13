@@ -1,6 +1,6 @@
 .SILENT:
 
-EXE_NAME=-o main
+EXE_NAME=-o a.exe
 MAIN=src/main.c
 UTILS=$(wildcard utils/*.c)
 MODULES=$(wildcard modules/*.c)
@@ -12,17 +12,17 @@ DEBUG=-g
 # digite apenas 'make' na mesma pasta onde está o arquivo 'makefile' para compilar o projeto todo
 # gcc $(MAIN) $(UTILS) $(MODULES) $(FLAGS)
 std:
-	gcc $(MAIN) $(UTILS) $(MODULES) -o a.exe
+	gcc $(MAIN) $(UTILS) $(MODULES) $(EXE_NAME)
 
 
 # compilações para testes caso precisemos:
 # digite 'make ut' para compilar sem os arquivos da pasta modules
 ut:
-	gcc $(MAIN) $(UTILS)
+	gcc $(MAIN) $(UTILS) $(EXE_NAME)
 
 # digite 'make md' para compilar sem os arquivos da pasta utils
 md:
-	gcc $(MAIN) $(MODULES)
+	gcc $(MAIN) $(MODULES) $(EXE_NAME)
 
 gdb:
-	gcc $(MAIN) $(UTILS) $(MODULES) $(DEBUG)
+	gcc $(MAIN) $(UTILS) $(MODULES) $(DEBUG) $(EXE_NAME)

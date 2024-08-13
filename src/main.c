@@ -6,6 +6,7 @@
 #include "../utils/queue.h"
 #include "../utils/shunting_yard.h"
 #include "../modules/parser.h"
+#include "../modules/eval.h"
 
 #define BUFFER_SIZE 255
 
@@ -26,6 +27,11 @@ int main(int argc, char** argv) {
 
         tree_node* tree = parser(q);
         printf("in-order: ");
+        inOrderTree(tree);
+        printf("\n");
+
+        eval(&tree);
+        printf("evalued tree: ");
         inOrderTree(tree);
         printf("\n\n");
     }
