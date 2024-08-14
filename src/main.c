@@ -7,6 +7,7 @@
 #include "../utils/shunting_yard.h"
 #include "../modules/parser.h"
 #include "../modules/eval.h"
+#include "../modules/tostring.h"
 
 #define BUFFER_SIZE 255
 
@@ -17,7 +18,7 @@ int main(int argc, char** argv) {
     if(fd == NULL) return 1;
     
     while(fgets(buffer, BUFFER_SIZE, fd)){
-        printf("> %s\n", buffer);
+        printf("-> %s\n", buffer);
         node* tokens = string2tokens(buffer);
 
         Queue *q = buildQueue(tokens);
@@ -30,11 +31,14 @@ int main(int argc, char** argv) {
         inOrderTree(tree);
         printf("\n");
 
+        ToString* ts = ToString_create();
+        printf("\n> %s\n", to_expression(ts, tree, false));
+
         while (eval(&tree) != 0) {
-            printf("evalued tree: ");
-            inOrderTree(tree);
-            printf("\n\n");
+
+            printf("> %s\n", to_expression(ts, tree, false));
         }
+        printf("\n");
     }
     return 0;
 }

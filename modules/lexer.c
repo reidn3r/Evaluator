@@ -67,8 +67,8 @@ node* string2tokens(char* string) {
     node* tokens = NULL;
     int current_position = 0;
 
-    int length = strlen(string);
-    char copy[length];
+    const int length = strlen(string);
+    char* copy = malloc(sizeof(char) * length + 1);
 
     while (current_position < length) {
         char* last_elem = lastElem(tokens);
