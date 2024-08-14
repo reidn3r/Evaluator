@@ -8,27 +8,23 @@
 #include "lexer.h"
 #include "../utils/copy.h"
 
-void eval(tree_node** root) {
+int eval(tree_node** root) {
     
-    if(!isNumber((*root)->right->elem)) {
-        eval(&((*root)->right));
-    } else if(!isNumber((*root)->left->elem)) {
+    if((*root)->left == NULL && (*root)->right == NULL) return 0; 
+
+    if(!isNumber((*root)->left->elem)) {
         eval(&((*root)->left));
+    } else if(!isNumber((*root)->right->elem)) {
+        eval(&((*root)->right));
     } else if(!isNumber((*root)->elem)){
-        int result = valueOperate((*root)->left->elem, (*root)->right->elem, (*root)->elem);
+        long long result = valueOperate((*root)->left->elem, (*root)->right->elem, (*root)->elem);
         setNumber(root, result);
-    } else return;
-
-
+    } else return 0;
 }
 
-void evalAll(tree_node* node) {
-
-}
-
-int valueOperate(char* left, char* right, char* op) {
-    int left_num = atoi(left);
-    int right_num = atoi(right);
+long long valueOperate(char* left, char* right, char* op) {
+    long long left_num = atoi(left);
+    long long right_num = atoi(right);
 
     switch(op[0]) {
         case '+':
@@ -49,9 +45,9 @@ int valueOperate(char* left, char* right, char* op) {
 
 }
 
-void setNumber(tree_node** root, int result) {
-    char str_result[13];
-    sprintf(str_result, "%i", result);
+void setNumber(tree_node** root, long long result) {
+    char str_result[20];
+    sprintf(str_result, "%lld", result);
 
     copy(&((*root)->elem), str_result);
 

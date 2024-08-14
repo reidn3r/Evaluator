@@ -30,10 +30,11 @@ int main(int argc, char** argv) {
         inOrderTree(tree);
         printf("\n");
 
-        eval(&tree);
-        printf("evalued tree: ");
-        inOrderTree(tree);
-        printf("\n\n");
+        while (eval(&tree) != 0) {
+            printf("evalued tree: ");
+            inOrderTree(tree);
+            printf("\n\n");
+        }
     }
     return 0;
 }

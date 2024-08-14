@@ -99,7 +99,7 @@ node* string2tokens(char* string) {
                 current_position++;
             }
 
-            char num_str[12]; // Buffer para armazenar o número como string (considerando um int de 32 bits)
+            char num_str[20]; // Buffer para armazenar o número como string (considerando um int de 32 bits)
             // Copia o número da string para o buffer
             strncpy(num_str, string + start_position, current_position - start_position);
             num_str[current_position - start_position] = '\0';
