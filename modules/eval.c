@@ -10,7 +10,7 @@
 
 int eval(tree_node** root) {
     
-    if((*root)->left == NULL && (*root)->right == NULL) return 0; 
+    if((*root)->left == NULL && (*root)->right == NULL && isNumber((*root)->elem)) return 0; 
 
     if(!isNumber((*root)->left->elem)) {
         eval(&((*root)->left));
@@ -19,7 +19,7 @@ int eval(tree_node** root) {
     } else if(!isNumber((*root)->elem)){
         long long result = valueOperate((*root)->left->elem, (*root)->right->elem, (*root)->elem);
         setNumber(root, result);
-    } else return 0;
+    } else return 1;
 }
 
 long long valueOperate(char* left, char* right, char* op) {
