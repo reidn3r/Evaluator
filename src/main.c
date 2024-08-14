@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 #include "../utils/list.h"
 #include "../utils/stack.h"
-#include "../modules/lexer.h"
 #include "../utils/queue.h"
 #include "../utils/shunting_yard.h"
+
+#include "../modules/lexer.h"
 #include "../modules/parser.h"
 #include "../modules/eval.h"
 #include "../modules/tostring.h"
@@ -12,6 +15,12 @@
 #define BUFFER_SIZE 255
 
 int main(int argc, char** argv) {
+
+    // Para avaliar tempo de execução
+    clock_t start, end;
+    double cpu_time_used;
+    start = clock();
+
     char buffer[BUFFER_SIZE];
     
     FILE* fd = fopen("io/input.txt", "r");
@@ -40,5 +49,11 @@ int main(int argc, char** argv) {
         }
         printf("\n");
     }
+
+    // Avalia tempo de execução
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("\n\t[Testes executados em %d ms]\n", (int) (cpu_time_used*1000));
+
     return 0;
 }
