@@ -23,12 +23,17 @@ int main(int argc, char** argv) {
 
     char buffer[BUFFER_SIZE];
     
-    FILE* fd = fopen("io/input.txt", "r");
+    FILE* fd = fopen("io/erros.txt", "r");
     if(fd == NULL) return 1;
     
     while(fgets(buffer, BUFFER_SIZE, fd)){
         printf("-> %s\n", buffer);
         node* tokens = string2tokens(buffer);
+        // verificar parenteses:
+        if(tokens == NULL) {
+            fprintf(stderr, "Parênteses incorretos: %s\n", buffer);
+            exit(EXIT_FAILURE);
+        }
 
         Queue *q = buildQueue(tokens);
         printf("queue: ");

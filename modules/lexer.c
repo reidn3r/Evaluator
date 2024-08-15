@@ -5,6 +5,7 @@
 #include <string.h>
 #include "../utils/list.h"
 #include "../utils/stack.h"
+#include "eval.h"
 
 
 // Função para verificar se um caractere é um espaço em branco
@@ -56,6 +57,26 @@ int correct_parenteses(char* string) {
         }
     }
     if (*stackPop(&parenteses) != 'x') return 0;
+}
+
+// função para avaliar os operandos dos operadores
+bool evalTokens(node* tokens) {
+    // +1 sem operando à direita
+    // 1+ sem operando à esquerda
+    // + sem operando nas duas
+    int operator_check = 0;
+    int operand_check = 0;
+
+    for (node* tmp = tokens; tmp != NULL; tmp = tmp->next) {
+        if (isNumber(tmp->elem)) {
+            operand_check++;
+
+        } else if (!isNumber(tmp->elem) && tmp->elem[0] != '(' && tmp->elem[0] != ')') {
+            operator_check++;
+        }
+    }
+
+    return (operand_check - operator_check == 1);
 }
 
 // Função para analisar a string e retornar uma lista de tokens
@@ -118,6 +139,13 @@ node* string2tokens(char* string) {
             fprintf(stderr, "Caractere inesperado: %c\n", current_char[0]);
             exit(EXIT_FAILURE);
         }
+    }
+
+    if(evalTokens(tokens)) {
+        return tokens;
+    } else {
+        fprintf(stderr, "Operandos insuficientes: %s\n", string);
+        exit(EXIT_FAILURE);
     }
 
     return tokens;
