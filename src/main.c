@@ -23,11 +23,10 @@ int main(int argc, char** argv) {
 
     char buffer[BUFFER_SIZE];
     
-    FILE* fd = fopen("io/erros.txt", "r");
+    FILE* fd = fopen("io/input.txt", "r");
     if(fd == NULL) return 1;
     
     while(fgets(buffer, BUFFER_SIZE, fd)){
-        printf("-> %s\n", buffer);
         node* tokens = string2tokens(buffer);
         // verificar parenteses:
         if(tokens == NULL) {
@@ -36,21 +35,15 @@ int main(int argc, char** argv) {
         }
 
         Queue *q = buildQueue(tokens);
-        printf("queue: ");
-        printQueue(q);
-        printf("\n");
 
         tree_node* tree = parser(q);
-        printf("in-order: ");
-        inOrderTree(tree);
-        printf("\n");
 
         ToString* ts = ToString_create();
-        printf("\n> %s\n", to_expression(ts, tree, false));
+        printf("> %s\n", to_expression(ts, tree, false));
 
         while (eval(&tree) != 0) {
 
-            printf("> %s\n", to_expression(ts, tree, false));
+            printf("%s\n", to_expression(ts, tree, false));
         }
         printf("\n");
     }
