@@ -39,13 +39,15 @@ int main(int argc, char** argv) {
         tree_node* tree = parser(q);
 
         ToString* ts = ToString_create();
-        printf("> %s\n", to_expression(ts, tree, false));
+        //printf("> %s\n", to_expression(ts, tree, false);
+        to_expression(ts, tree, false);
 
         while (eval(&tree) != 0) {
 
-            printf("%s\n", to_expression(ts, tree, false));
+            //printf("> %s\n", to_expression(ts, tree, false);
+            to_expression(ts, tree, false);
         }
-        printf("\n");
+        //printf("\n");
     }
 
     // Avalia tempo de execução
